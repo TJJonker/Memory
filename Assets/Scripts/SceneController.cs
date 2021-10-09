@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
@@ -96,5 +97,7 @@ public class SceneController : MonoBehaviour
         firstRevealed = null;
         secondRevealed = null;
     }
+
+    public void Restart() => SceneManager.LoadScene("Scene");
 
 }
