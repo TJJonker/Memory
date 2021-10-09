@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MemoryCard : MonoBehaviour
@@ -21,6 +19,12 @@ public class MemoryCard : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (cardBack.activeSelf) cardBack.SetActive(false);
+        if (cardBack.activeSelf && sceneController.canReveal)
+        {
+            cardBack.SetActive(false);
+            sceneController.CardReveal(this);
+        }
     }
+
+    public void Unreveal() => cardBack.SetActive(true);
 }

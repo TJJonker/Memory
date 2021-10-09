@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SceneController : MonoBehaviour
@@ -9,6 +10,13 @@ public class SceneController : MonoBehaviour
 
     [SerializeField] MemoryCard originalCard;
     [SerializeField] Sprite[] images;
+
+    private MemoryCard firstRevealed;
+    private MemoryCard secondRevealed;
+
+    private int score = 0;
+
+    public bool canReveal { get { return secondRevealed == null; } }
 
     private void Start()
     {
@@ -30,7 +38,7 @@ public class SceneController : MonoBehaviour
                 // Determines card index and assigns ID
                 int index = j * gridCols + i;
                 int id = numbers[index];
-                originalCard.SetCard(id, images[id]);
+                card.SetCard(id, images[id]);
 
                 // Place card
                 float posX = (offsetX * i) + startPos.x;
@@ -57,4 +65,34 @@ public class SceneController : MonoBehaviour
         }
         return newArray;
     }
+
+    public void CardReveal(MemoryCard card)
+    {
+        if (firstRevealed == null) firstRevealed = card;
+        else
+        {
+            secondRevealed = card;
+            StartCoroutine(CheckMatch());
+        }
+    }
+
+    private IEnumerator CheckMatch()
+    {
+        if(firstRevealed.Id == secondRevealed.Id)
+        {
+            score++;
+            Debug.Log($"Score: {score}");
+        }
+        else
+        {
+            yield return new WaitForSeconds(.5f);
+
+            firstRevealed.Unreveal();
+            secondRevealed.Unreveal();
+        }
+
+        firstRevealed = null;
+        secondRevealed = null;
+    }
+
 }

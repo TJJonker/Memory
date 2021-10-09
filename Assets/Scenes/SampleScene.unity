@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardBack: {fileID: 507520745}
-  sceneController: {fileID: 0}
+  sceneController: {fileID: 919520537}
 --- !u!61 &464748891
 BoxCollider2D:
   m_ObjectHideFlags: 0
