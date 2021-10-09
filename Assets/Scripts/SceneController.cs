@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class SceneController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SceneController : MonoBehaviour
 
     [SerializeField] MemoryCard originalCard;
     [SerializeField] Sprite[] images;
+    [SerializeField] TMP_Text scoreLabel;
 
     private MemoryCard firstRevealed;
     private MemoryCard secondRevealed;
@@ -81,7 +83,7 @@ public class SceneController : MonoBehaviour
         if(firstRevealed.Id == secondRevealed.Id)
         {
             score++;
-            Debug.Log($"Score: {score}");
+            scoreLabel.text = $"Score: {score}";
         }
         else
         {
