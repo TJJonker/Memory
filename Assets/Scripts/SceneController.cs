@@ -15,6 +15,9 @@ public class SceneController : MonoBehaviour
         // First card will determine offset rest of the cards
         Vector3 startPos = originalCard.transform.position;
 
+        int[] numbers = { 0, 0, 1, 1, 2, 2, 3, 3 };
+        numbers = ShuffleArray(numbers);
+
         for(int i = 0; i < gridCols; i++)
         {
             for (int j = 0; j < gridRows; j++)
@@ -24,8 +27,9 @@ public class SceneController : MonoBehaviour
                 if (i == 0 && j == 0) card = originalCard;
                 else card = Instantiate(originalCard) as MemoryCard;
 
-                // Randomize card
-                int id = Random.Range(0, images.Length);
+                // Determines card index and assigns ID
+                int index = j * gridCols + i;
+                int id = numbers[index];
                 originalCard.SetCard(id, images[id]);
 
                 // Place card
@@ -35,5 +39,22 @@ public class SceneController : MonoBehaviour
             }
         }
 
+    }
+
+    // Shuffles an array with integers
+    private int[] ShuffleArray(int[] numbers)
+    {
+        int[] newArray = numbers.Clone() as int[];
+        for(int i = 0; i < newArray.Length; i++)
+        {
+            // Grabs a certain entry
+            int tmp = newArray[i];
+            // Grabs a random entry
+            int r = Random.Range(i, newArray.Length);
+            // Switches the value of the certain and random index
+            newArray[i] = newArray[r];
+            newArray[r] = tmp;
+        }
+        return newArray;
     }
 }
